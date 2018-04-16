@@ -39,7 +39,7 @@ rscript code/iptw.R bootstrap=FALSE
 
 If `bootstrap=FALSE` not specified, then it will default to `FALSE`.
 
-If you want to compute the g-computation estimator and have a non-parametric bootstrap estimate of the g-computation estimator and its standard error, please run
+If you want to compute the IPTW estimator and have a non-parametric bootstrap estimate of the IPTW estimator and its standard error, please run
 
 ```
 rscript code/iptw.R bootstrap=TRUE B=1000 n=20000

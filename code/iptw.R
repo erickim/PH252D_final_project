@@ -45,7 +45,7 @@ wt <- 1/gAW
 IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y)) -
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))
 
-print(paste("The IPTW estimator is", IPTW))
+print(paste("The IPTW estimator is", round(IPTW, 4)))
 
 # Hajek estimator
 stab_IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y))/mean(wt*(clean$Vaccination_A == 1)) -
@@ -85,7 +85,7 @@ IPTW_est <- function(data, n) {
   stab_IPTW <- mean(wt*(boot_samp$Vaccination_A == 1)*as.numeric(boot_samp$Hospitalization_Y))/mean(wt*(boot_samp$Vaccination_A == 1)) -
     mean(wt*(boot_samp$Vaccination_A == 0)*as.numeric(boot_samp$Hospitalization_Y))/mean(wt*(boot_samp$Vaccination_A == 0))
   
-  return(data.frame(IPTW = IPTW, Stabilized_IPTW = stab_IPTW))
+  return(c(IPTW, stab_IPTW))
 }
 
 # if bootstrap not passed in command line, dont do the bootstrap
@@ -95,18 +95,18 @@ if (bootstrap) {
   if (!("B" %in% ls())) B <- 1000
   if (!("n" %in% ls())) n <- 20000
   
-  estimates <- replicate(B, IPTW_est(clean, n))
-  write.csv(estimates, "data/iptw_np_bootstrap_est.csv")
+  estimates <- t(replicate(B, IPTW_est(clean, n)))
+  write.csv(estimates, "data/iptw_np_bootstrap_est.csv", row.names = FALSE)
   print(paste("The non-parametric bootstrap estimate of the",
               "IPTW estimator is",
-              mean(estimates$IPTW)))
+              mean(estimates[,1])))
   print(paste("The non-parametric bootstrap estimate of the",
               "standard deviation of the IPTW estimator is",
-              sd(estimates$IPTW)))
+              sd(estimates[,1])))
   print(paste("The non-parametric bootstrap estimate of the",
               "stabilized IPTW estimator is",
-              mean(estimates$IPTW)))
+              mean(estimates[,2])))
   print(paste("The non-parametric bootstrap estimate of the",
               "standard deviation of the stabilized IPTW estimator is",
-              sd(estimates$Stabilized_IPTW)))
+              sd(estimates[,2])))
 }

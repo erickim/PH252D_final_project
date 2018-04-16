@@ -72,7 +72,7 @@ if (bootstrap) {
   if (!("n" %in% ls())) n <- 20000
   
   estimates <- replicate(B, Psi_est(clean, n))
-  write.csv(estimates, "data/g_comp_np_bootstrap_est.csv")
+  write.csv(estimates, "data/g_comp_np_bootstrap_est.csv", row.names = FALSE)
   print(paste("The non-parametric bootstrap estimate of the",
               "g-computation estimator is",
               mean(estimates)))
