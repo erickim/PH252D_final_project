@@ -17,10 +17,6 @@ clean %<>% mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1),
                   Sex_W5 = as.factor(Sex_W5),
                   College_W2 = as.factor(College_W2))
 
-tamu_gcomp <- glm(Hospitalization_Y ~ .,
-                  data = clean,
-                  family = "binomial")
-
 # `Rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000`
 args = commandArgs(trailingOnly = TRUE)
 if (length(args) > 0) {
@@ -29,9 +25,14 @@ if (length(args) > 0) {
   }
 }
 
+
 #"""""""""""""""""""""""""#
 # g-computation estimator #
 #"""""""""""""""""""""""""#
+
+tamu_gcomp <- glm(Hospitalization_Y ~ .,
+                  data = clean,
+                  family = "binomial")
 
 treatment <- clean %>% mutate(Vaccination_A = as.factor(1))
 control <- clean %>% mutate(Vaccination_A = as.factor(0))
@@ -42,9 +43,11 @@ control_predict <- predict(tamu_gcomp, newdata = control, type = "response")
 Psi <- mean(treatment_predict - control_predict)
 print(paste("The g-computation estimator is", Psi))
 
+
 #""""""""""""""""""""""""""#
 # non-parametric bootstrap #
 #""""""""""""""""""""""""""#
+
 set.seed(252)
 
 Psi_est <- function(data, n) {
