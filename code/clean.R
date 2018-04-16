@@ -34,6 +34,7 @@ library(tidyverse)
 #      [SEX_CD]
 
 clean <- data %>%
+  filter(ORIG_REAS_ENTITLE_CD == 0) %>%
   select(Vaccination_A = RX_THER_17_YR2015,
          Hospitalization_Y = ADMISSIONS,
          Income_W1 = Est_income,
@@ -43,6 +44,10 @@ clean <- data %>%
          College_W2 = College,
          Age_W3 = AGE,
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
-         Sex_W5 = SEX_CD)
+         Sex_W5 = SEX_CD) %>%
+  mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1),
+         Vaccination_A = as.factor((Vaccination_A >= 1)*1),
+         Sex_W5 = as.factor(Sex_W5),
+         College_W2 = as.factor(College_W2))
 
 write.csv(clean, file = "data/cleaned_tamu.csv")
