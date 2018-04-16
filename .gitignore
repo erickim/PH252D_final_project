@@ -1,0 +1,8 @@
+.aux
+.out
+.Rhistory
+.DS_Store
+*.gz
+*.log
+*.tex
+.RData
