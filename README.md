@@ -3,7 +3,7 @@
 
 In order to download this repository, run
 ```
-https://github.com/erickim/PH252D_final_project.git
+git clone https://github.com/erickim/PH252D_final_project.git
 ```
 
 In order to get the cleaned data set, please create a `data` directory, put the `TAMU_FINAL_SUBSET.csv` file in the `data` directory, and run in the terminal from the main directory:
