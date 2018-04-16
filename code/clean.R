@@ -45,9 +45,6 @@ clean <- data %>%
          Age_W3 = AGE,
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
          Sex_W5 = SEX_CD) %>%
-  mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1),
-         Vaccination_A = as.factor((Vaccination_A >= 1)*1),
-         Sex_W5 = as.factor(Sex_W5),
-         College_W2 = as.factor(College_W2))
+  na.omit()
 
 write.csv(clean, file = "data/cleaned_tamu.csv")
