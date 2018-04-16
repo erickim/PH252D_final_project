@@ -37,4 +37,4 @@ clean <- data %>%
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
          Sex_W5 = SEX_CD)
 
-write.csv(clean, file = "cleaned_tamu.csv")
+write.csv(clean, file = "data/cleaned_tamu.csv")

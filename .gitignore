@@ -5,4 +5,7 @@
 *.gz
 *.log
 *.tex
-.RData
+*.RData
+*.csv
+*.xlsx
+*.txt
