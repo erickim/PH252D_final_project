@@ -42,7 +42,7 @@ clean <- data %>%
          Education_W2 = Education_level,
          College_W2 = College,
          Age_W3 = AGE,
-         Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
+         Medical_Risk_W4 = log(RECON_MA_RISK_SCORE_NBR),
          Sex_W5 = SEX_CD) %>%
   na.omit()
 
