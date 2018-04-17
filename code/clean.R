@@ -37,14 +37,14 @@ clean <- data %>%
   filter(ORIG_REAS_ENTITLE_CD == 0) %>%
   select(Vaccination_A = RX_THER_17_YR2015,
          Hospitalization_Y = ADMISSIONS,
-         Income_W1 = Est_income,
+         Net_Worth_W1 = Est_Net_worth,
          Above_Pvt_Line_W1 = Pct_above_poverty_line,
-         Below_Pvt_Line_W1 = Pct_below_poverty_line,
          Education_W2 = Education_level,
          College_W2 = College,
          Age_W3 = AGE,
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
-         Sex_W5 = SEX_CD) %>%
+         Sex_W5 = SEX_CD,
+         Index_Health_ins_engage) %>%
   na.omit()
 
 write.csv(clean, file = "data/cleaned_tamu.csv")

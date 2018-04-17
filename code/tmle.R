@@ -7,6 +7,7 @@
 library(tidyverse)
 library(magrittr)
 library(ltmle)
+library(SuperLearner)
 
 clean <- read.csv("data/cleaned_tamu.csv")[,-1]
 clean %<>% mutate(Hospitalization_Y = (Hospitalization_Y >= 1)*1,
@@ -18,7 +19,7 @@ clean %<>% mutate(Hospitalization_Y = (Hospitalization_Y >= 1)*1,
 # TMLE estimator #
 #""""""""""""""""#
 
-SL.library <- c("SL.glm", "SL.step", "SL.gam")
+SL.library <- c("SL.glm", "SL.step", "SL.mean")
 
 W <- clean %>% select(-c(Hospitalization_Y, Vaccination_A))
 A <- clean$Vaccination_A
@@ -28,3 +29,7 @@ df <- data.frame(W, A, Y)
 
 tmle_out <- ltmle(data = df, Anodes = 'A', Ynodes = 'Y',
                   abar = list(1, 0), SL.library = SL.library)
+
+print(paste("The tmle estimator is", x$effect.measures$ATE$estimate))
+print(paste("The standard deviation for the tmle estimator is",
+            x$effect.measures$ATE$std.dev))
