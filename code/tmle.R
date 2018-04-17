@@ -7,6 +7,7 @@
 library(tidyverse)
 library(magrittr)
 library(ltmle)
+library(SuperLearner)
 
 clean <- read.csv("data/cleaned_tamu.csv")[,-1]
 
