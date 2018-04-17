@@ -18,6 +18,8 @@ clean %<>% mutate(Hospitalization_Y = (Hospitalization_Y >= 1)*1,
 # TMLE estimator #
 #""""""""""""""""#
 
+SL.library <- c("SL.glm", "SL.step", "SL.gam")
+
 W <- clean %>% select(-c(Hospitalization_Y, Vaccination_A))
 A <- clean$Vaccination_A
 Y <- clean$Hospitalization_Y
