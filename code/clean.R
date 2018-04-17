@@ -39,12 +39,13 @@ clean <- data %>%
          Hospitalization_Y = ADMISSIONS,
          Income_W1 = Est_income,
          Above_Pvt_Line_W1 = Pct_above_poverty_line,
-         Below_Pvt_Line_W1 = Pct_below_poverty_line,
+         Est_Net_Worth_W1 = Est_Net_worth,
          Education_W2 = Education_level,
          College_W2 = College,
          Age_W3 = AGE,
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
-         Sex_W5 = SEX_CD) %>%
+         Sex_W5 = SEX_CD,
+         Engage_W6 = Index_Health_ins_engage) %>%
   na.omit()
 
 write.csv(clean, file = "data/cleaned_tamu.csv")
