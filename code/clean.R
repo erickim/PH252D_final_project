@@ -44,8 +44,7 @@ clean <- data %>%
          College_W2 = College,
          Age_W3 = AGE,
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
-         Sex_W5 = SEX_CD,
-         Engage_W6 = Index_Health_ins_engage) %>%
+         Sex_W5 = SEX_CD) %>%
   na.omit()
 
 write.csv(clean, file = "data/cleaned_tamu.csv")
