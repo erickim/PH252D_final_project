@@ -46,7 +46,7 @@ clean <- data %>%
          Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
          Sex_W5 = SEX_CD) %>%
   mutate(Est_Net_Worth_W1 = log(Est_Net_Worth_W1 + Est_income_W1),
-         Medical_Risk_W4 = log(Medical_Risk_W4)) %>%
+         Medical_Risk_W4 = log(Medical_Risk_W4 + .1)) %>%
   select(-Est_income_W1) %>%
   na.omit()
 
