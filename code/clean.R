@@ -38,12 +38,16 @@ clean <- data %>%
   select(Vaccination_A = RX_THER_17_YR2015,
          Hospitalization_Y = ADMISSIONS,
          Above_Pvt_Line_W1 = Pct_above_poverty_line,
-         Est_Net_Worth_W1 = log(Est_Net_worth),
+         Est_income_W1 = Est_income,
+         Est_Net_Worth_W1 = Est_Net_worth,
          Education_W2 = Education_level,
          College_W2 = College,
          Age_W3 = AGE,
-         Medical_Risk_W4 = log(RECON_MA_RISK_SCORE_NBR),
+         Medical_Risk_W4 = RECON_MA_RISK_SCORE_NBR,
          Sex_W5 = SEX_CD) %>%
+  mutate(Est_Net_Worth_W1 = log(Est_Net_Worth_W1 + Est_income_W1),
+         Medical_Risk_W4 = log(Medical_Risk_W4)) %>%
+  select(-Est_income_W1) %>%
   na.omit()
 
 write.csv(clean, file = "data/cleaned_tamu.csv")
