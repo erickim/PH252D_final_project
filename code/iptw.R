@@ -26,11 +26,8 @@ if (length(args) > 0) {
 # IPTW estimator #
 #""""""""""""""""#
 
-gAW_glm <- glm(Vaccination_A ~ Net_Worth_W1 + Above_Pvt_Line_W1 +
-                 Education_W2 + College_W2 + Age_W3 + Medical_Risk_W4 +
-                 Sex_W5 + Index_Health_ins_engage,
-               data = clean,
-               family = "binomial")
+gAW_glm <- glm(Vaccination_A ~ . - Hospitalization_Y,
+               data = clean, family = "binomial")
 
 pred_g1W <- predict(gAW_glm, type = "response")
 pred_g0W <- 1 - pred_g1W
