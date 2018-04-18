@@ -80,3 +80,10 @@ if (bootstrap) {
               "standard deviation of the g-computation estimator is",
               sd(estimates)))
 }
+
+
+
+
+
+
+

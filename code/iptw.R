@@ -105,3 +105,10 @@ if (bootstrap) {
               "standard deviation of the stabilized IPTW estimator is",
               sd(estimates[,2])))
 }
+
+
+
+
+
+
+
