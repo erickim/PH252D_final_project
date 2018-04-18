@@ -57,16 +57,3 @@ print(paste("The continuous TMLE estimate is",
             round(tmle_out_continuous_summary$effect.measures$ATE$estimate, 4)))
 print(paste("The continuous TMLE estimate has standard error",
             round(tmle_out_continuous_summary$effect.measures$ATE$std.dev, 4)))
-
-
-
-
-
-
-
-
-
-
-
-
-
