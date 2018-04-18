@@ -41,3 +41,31 @@ df_continuous <- data.frame(W, A, Y = Y_continuous)
 tmle_out_continuous <- ltmle(data = df_continuous, Anodes = 'A', Ynodes = 'Y',
                              Yrange = c(0, 12), abar = list(1, 0),
                              SL.library = SL.library)
+
+
+## summaries
+tmle_out_binary_summary <- summary(tmle_out_binary)
+tmle_out_continuous_summary <- summary(tmle_out_continuous)
+
+print(paste("The binarized TMLE estimate is",
+            round(tmle_out_binary_summary$effect.measures$ATE$estimate, 4)))
+print(paste("The binarized TMLE estimate has standard error",
+            round(tmle_out_binary_summary$effect.measures$ATE$std.dev, 4)))
+
+print(paste("The continuous TMLE estimate is",
+            round(tmle_out_continuous_summary$effect.measures$ATE$estimate, 4)))
+print(paste("The continuous TMLE estimate has standard error",
+            round(tmle_out_continuous_summary$effect.measures$ATE$std.dev, 4)))
+
+
+
+
+
+
+
+
+
+
+
+
+
