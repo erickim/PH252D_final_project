@@ -31,7 +31,7 @@ rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000
 Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. The bootstrap estimates will be saved into `data/g_comp_np_bootstrap_est.csv`
 
 ## The IPTW estimator
-In order to compute the g-computation estimator, please run
+In order to compute the iptw estimator, please run
 
 ```
 rscript code/iptw.R bootstrap=FALSE
@@ -46,3 +46,14 @@ rscript code/iptw.R bootstrap=TRUE B=1000 n=20000
 ```
 
 Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. The bootstrap estimates will be saved into `data/iptw_np_bootstrap_est.csv`
+
+## The TMLE estimate
+In order to compute the tmle estimator, please run
+
+```
+rscript code/tmle.R
+```
+
+For the TMLE, we have a confidence interval based on the Influence Curve hence we do not need to do bootstrap hence it is not implemented.
+
+
