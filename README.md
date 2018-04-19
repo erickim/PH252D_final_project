@@ -14,35 +14,35 @@ rscript code/clean.R
 ```
 
 ## The g-computation estimator
-In order to compute the g-computation estimator, please run
+In order to compute the g-computation estimator for continuous response, please run
 
 ```
-rscript code/g_computation.R bootstrap=FALSE
+rscript code/g_computation.R type=\"continuous\" bootstrap=FALSE
 ```
 
-If `bootstrap=FALSE` not specified, then it will default to `FALSE`.
+If `bootstrap=FALSE` not specified, then it will default to `FALSE`. The script can also perform g-computation estimation for binarized response with `type=\"binary\"`. If `type` is not specified, then it will default to continuous. Note that when passing in strings, you must escape the quotation marks.
 
 If you want to compute the g-computation estimator and have a non-parametric bootstrap estimate of the g-computation estimator and its standard error, please run
 
 ```
-rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000
+rscript code/g_computation.R bootstrap=TRUE B=500 n=2500
 ```
 
 Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. The bootstrap estimates will be saved into `data/g_comp_np_bootstrap_est.csv`
 
 ## The IPTW estimator
-In order to compute the iptw estimator, please run
+In order to compute the iptw estimator for continuous response, please run
 
 ```
-rscript code/iptw.R bootstrap=FALSE
+rscript code/iptw.R type=\"continuous\" bootstrap=FALSE
 ```
 
-If `bootstrap=FALSE` not specified, then it will default to `FALSE`.
+If `bootstrap=FALSE` not specified, then it will default to `FALSE`. The script can also perform iptw estimation for binarized response with `type=\"binary\"`. If `type` is not specified, then it will default to continuous. Note that when passing in strings, you must escape the quotation marks.
 
 If you want to compute the IPTW estimator and have a non-parametric bootstrap estimate of the IPTW estimator and its standard error, please run
 
 ```
-rscript code/iptw.R bootstrap=TRUE B=1000 n=20000
+rscript code/iptw.R bootstrap=TRUE B=500 n=2500
 ```
 
 Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. The bootstrap estimates will be saved into `data/iptw_np_bootstrap_est.csv`

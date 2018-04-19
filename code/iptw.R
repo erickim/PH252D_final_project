@@ -7,13 +7,7 @@
 library(tidyverse)
 library(magrittr)
 
-clean <- read.csv("data/cleaned_tamu.csv")[,-1]
-clean %<>% mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1),
-                  Vaccination_A = as.factor((Vaccination_A >= 1)*1),
-                  Sex_W5 = as.factor(Sex_W5),
-                  College_W2 = as.factor(College_W2))
-
-# `Rscript code/iptw.R bootstrap=TRUE B=1000 n=20000`
+# `Rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000`
 args = commandArgs(trailingOnly = TRUE)
 if (length(args) > 0) {
   for (arg in args) {
@@ -21,6 +15,20 @@ if (length(args) > 0) {
   }
 }
 
+clean <- read.csv("data/cleaned_tamu.csv")[,-1]
+clean %<>% mutate(Vaccination_A = as.factor((Vaccination_A >= 1)*1),
+                  Sex_W5 = as.factor(Sex_W5),
+                  College_W2 = as.factor(College_W2))
+
+# if `type` not specified, just do continuous `Y`
+if (!("type") %in% ls()) type <- "continuous"
+if (!(type %in% c("continuous", "binary"))) type <- "continuous"
+
+if (type == "binary") {
+  clean %<>% mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1))
+}
+
+cat(paste0("IPTW for ", type, " response will be performed.\n"))
 
 #""""""""""""""""#
 # IPTW estimator #
@@ -42,13 +50,13 @@ wt <- 1/gAW
 IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y)) -
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))
 
-print(paste("The IPTW estimator is", round(IPTW, 4)))
+cat(paste0("The IPTW estimator is ", round(IPTW, 4), ".\n"))
 
 # Hajek estimator
 stab_IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y))/mean(wt*(clean$Vaccination_A == 1)) -
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))/mean(wt*(clean$Vaccination_A == 0))
 
-print(paste("The stabilized IPTW estimator is", stab_IPTW))
+cat(paste0("The stabilized IPTW estimator is ", stab_IPTW, ".\n"))
 
 #""""""""""""""""""""""""""#
 # non-parametric bootstrap #
@@ -87,28 +95,27 @@ IPTW_est <- function(data, n) {
 if (!("bootstrap") %in% ls()) bootstrap <- FALSE
 if (bootstrap) {
   # set default if B and n not passed in command line
-  if (!("B" %in% ls())) B <- 1000
-  if (!("n" %in% ls())) n <- 20000
+  if (!("B" %in% ls())) B <- 500
+  if (!("n" %in% ls())) n <- 2500
   
   estimates <- t(replicate(B, IPTW_est(clean, n)))
   write.csv(estimates, "data/iptw_np_bootstrap_est.csv", row.names = FALSE)
-  print(paste("The non-parametric bootstrap estimate of the",
-              "IPTW estimator is",
-              mean(estimates[,1])))
-  print(paste("The non-parametric bootstrap estimate of the",
-              "standard deviation of the IPTW estimator is",
-              sd(estimates[,1])))
-  print(paste("The non-parametric bootstrap estimate of the",
-              "stabilized IPTW estimator is",
-              mean(estimates[,2])))
-  print(paste("The non-parametric bootstrap estimate of the",
-              "standard deviation of the stabilized IPTW estimator is",
-              sd(estimates[,2])))
+  cat(paste0("The non-parametric bootstrap estimate of the ",
+            "IPTW estimator is ",
+            mean(estimates[,1]),
+            ".\n"))
+  cat(paste0("The non-parametric bootstrap estimate of the ",
+             "standard deviation of the IPTW estimator is ",
+             sd(estimates[,1]),
+             ".\n"))
+  cat(paste0("The non-parametric bootstrap estimate of the ",
+             "stabilized IPTW estimator is ",
+             mean(estimates[,2]),
+             ".\n"))
+  cat(paste0("The non-parametric bootstrap estimate of the ",
+             "standard deviation of the stabilized IPTW estimator is ",
+             sd(estimates[,2]),
+             ".\n"))
 }
-
-
-
-
-
 
 
