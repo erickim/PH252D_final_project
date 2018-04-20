@@ -4,10 +4,10 @@
 #                                                                             #
 ###############################################################################
 
-library(tidyverse)
-library(magrittr)
-library(ltmle)
-library(SuperLearner)
+suppressMessages(library(tidyverse))
+suppressMessages(library(magrittr))
+suppressMessages(library(ltmle))
+suppressMessages(library(SuperLearner))
 
 clean <- read.csv("data/cleaned_tamu.csv")[,-1]
 

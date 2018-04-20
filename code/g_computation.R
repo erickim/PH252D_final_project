@@ -8,8 +8,8 @@
 # loading #
 #"""""""""#
 
-library(tidyverse)
-library(magrittr)
+suppressMessages(library(tidyverse))
+suppressMessages(library(magrittr))
 
 # `Rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000`
 args = commandArgs(trailingOnly = TRUE)
@@ -29,14 +29,13 @@ if (!("type") %in% ls()) {
   type <- "continuous"
   family <- "gaussian"
 }
-if (!(type %in% c("continuous", "binary"))) {
-  type <- "continuous"
-  family <- "gaussian"
-}
 
 if (type == "binary") {
   clean %<>% mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1))
   family <- "binomial"
+} else {
+  type <- "continuous"
+  family <- "gaussian"
 }
 
 cat(paste0("G-computation for ", type, " response will be performed.\n"))

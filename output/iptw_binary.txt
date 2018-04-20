@@ -1,0 +1,7 @@
+IPTW for binary response will be performed.
+The IPTW estimator is -0.0139158284671959.
+The stabilized IPTW estimator is -0.014373588198102.
+The non-parametric bootstrap estimate of the IPTW estimator is -0.0127356571550038.
+The non-parametric bootstrap estimate of the standard deviation of the IPTW estimator is 0.0178740499805356.
+The non-parametric bootstrap estimate of the stabilized IPTW estimator is -0.0130379684051192.
+The non-parametric bootstrap estimate of the standard deviation of the stabilized IPTW estimator is 0.0176755403424706.

@@ -4,8 +4,12 @@
 #                                                                             #
 ###############################################################################
 
-library(tidyverse)
-library(magrittr)
+#"""""""""#
+# loading #
+#"""""""""#
+
+suppressMessages(library(tidyverse))
+suppressMessages(library(magrittr))
 
 # `Rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000`
 args = commandArgs(trailingOnly = TRUE)
@@ -50,7 +54,7 @@ wt <- 1/gAW
 IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y)) -
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))
 
-cat(paste0("The IPTW estimator is ", round(IPTW, 4), ".\n"))
+cat(paste0("The IPTW estimator is ", IPTW, ".\n"))
 
 # Hajek estimator
 stab_IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y))/mean(wt*(clean$Vaccination_A == 1)) -
