@@ -11,11 +11,15 @@ system("mkdir plots")
 
 gcomp_binary <- read.csv("data/g_comp_np_bootstrap_est_binary.csv")
 iptw_binary <- read.csv("data/iptw_np_bootstrap_est_binary.csv")
+tmle_binary <- read.csv("data/tmle_np_bootstrap_est_continuous.csv")
 
 names(gcomp_binary) <- "G_Comp"
 names(iptw_binary) <- c("IPTW", "Stabilized_IPTW")
+names(tmle_binary) <- c("TMLE")
 
-boot_dens_binary <- data.frame(gcomp_binary, iptw_binary) %>%
+boot_dens_binary <- data.frame(gcomp_binary,
+                               iptw_binary,
+                               tmle_binary) %>%
   melt() %>%
   rename(Value = value,
          Method = variable) %>%
@@ -36,11 +40,15 @@ ggsave(filename = "plots/boot_dens_binary.png",
 
 gcomp_continuous <- read.csv("data/g_comp_np_bootstrap_est_continuous.csv")
 iptw_continuous <- read.csv("data/iptw_np_bootstrap_est_continuous.csv")
+tmle_continuous <- read.csv("data/tmle_np_bootstrap_est_continuous.csv")
 
 names(gcomp_continuous) <- "G_Comp"
 names(iptw_continuous) <- c("IPTW", "Stabilized_IPTW")
+names(tmle_continuous) <- "TMLE"
 
-boot_dens_continuous <- data.frame(gcomp_continuous, iptw_continuous) %>%
+boot_dens_continuous <- data.frame(gcomp_continuous,
+                                   iptw_continuous,
+                                   tmle_continuous) %>%
   melt() %>%
   rename(Value = value,
          Method = variable) %>%

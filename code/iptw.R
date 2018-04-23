@@ -12,7 +12,7 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(magrittr))
 suppressMessages(library(readr))
 
-# `Rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000`
+# `Rscript code/iptw.R bootstrap=TRUE B=1000 n=20000`
 args = commandArgs(trailingOnly = TRUE)
 if (length(args) > 0) {
   for (arg in args) {

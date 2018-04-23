@@ -22,13 +22,13 @@ rscript code/g_computation.R type=\"continuous\" bootstrap=FALSE
 
 If `bootstrap=FALSE` not specified, then it will default to `FALSE`. The script can also perform g-computation estimation for binarized response with `type=\"binary\"`. If `type` is not specified, then it will default to continuous. Note that when passing in strings, you must escape the quotation marks.
 
-If you want to compute the g-computation estimator and have a non-parametric bootstrap estimate of the g-computation estimator and its standard error, please run
+If you want to compute the g-computation estimator and have a non-parametric bootstrap estimate of the g-computation estimator and its standard error for continuous response, please run
 
 ```
-rscript code/g_computation.R bootstrap=TRUE B=500 n=2500
+rscript code/g_computation.R type=\"continuous\" bootstrap=TRUE B=500 n=2500
 ```
 
-Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. The bootstrap estimates will be saved into `data/g_comp_np_bootstrap_est.csv`
+Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. You can also alter `type` to `binary`. The bootstrap estimates will be saved into `data/g_comp_np_bootstrap_est.csv` (and corresponding for binary).
 
 ## The IPTW estimator
 In order to compute the iptw estimator for continuous response, please run
@@ -39,13 +39,13 @@ rscript code/iptw.R type=\"continuous\" bootstrap=FALSE
 
 If `bootstrap=FALSE` not specified, then it will default to `FALSE`. The script can also perform iptw estimation for binarized response with `type=\"binary\"`. If `type` is not specified, then it will default to continuous. Note that when passing in strings, you must escape the quotation marks.
 
-If you want to compute the IPTW estimator and have a non-parametric bootstrap estimate of the IPTW estimator and its standard error, please run
+If you want to compute the IPTW estimator and have a non-parametric bootstrap estimate of the IPTW estimator and its standard error for continuous response, please run
 
 ```
-rscript code/iptw.R bootstrap=TRUE B=500 n=2500
+rscript code/iptw.R bootstrap=TRUE type=\"continuous\" B=500 n=2500
 ```
 
-Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. The bootstrap estimates will be saved into `data/iptw_np_bootstrap_est.csv`
+Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. You can also alter `type` to `binary`. The bootstrap estimates will be saved into `data/iptw_np_bootstrap_est_continuous.csv` (and corresponding for binary).
 
 ## The TMLE estimate
 In order to compute the tmle estimator, please run
@@ -54,13 +54,21 @@ In order to compute the tmle estimator, please run
 rscript code/tmle.R
 ```
 
-For the TMLE, we have a confidence interval based on the Influence Curve hence we do not need to do bootstrap hence it is not implemented.
+For the TMLE, we have a confidence interval based on the Influence Curve hence we do not need to do bootstrap hence it is not implemented. However, if you do wish to perform bootstrap, please run
 
-## Running G-Computation and IPTW Bootstrap
+```
+rscript code/tmle_bootstrap.R bootstrap=TRUE type=\"continuous\" B=500 n=2500
+```
+
+Where you can alter `B` and `n` to change the number of bootstrap samples to take and the number of rows to sample in each run of the bootstrap. You can also alter `type` to `binary`. The bootstrap estimates will be saved into `data/tmle_np_bootstrap_est_continuous.csv` (and corresponding for binary).
+
+NOTE: For large `B`, this will take a while. We recommend using `B=150` if running locally.
+
+## Running Bootstrap in One Script
 If you run
 
 ```
-bash code/bootstrap_gcomp_iptw.sh
+bash code/bootstrap.sh
 ```
 
-The the bootstrap for the g-comp and iptw esitmator will automatically run for both binary and continuous response with B=500 and n=2500. To change this, you will need to edit the file.
+The the bootstrap for all the above will automatically run for both binary and continuous response with `B=500` and `n=2500` (and `B=150` for tmle). To change this, you will need to edit the file.
