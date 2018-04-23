@@ -1,4 +1,4 @@
 G-computation for continuous response will be performed.
-The g-computation estimator is -0.0377949380880115.
-The non-parametric bootstrap estimate of the g-computation estimator is -0.0371659073656792.
-The non-parametric bootstrap estimate of the standard deviation of the g-computation estimator is 0.0399374609313803.
+The g-computation estimator is -0.0372530229828372.
+The non-parametric bootstrap estimate of the g-computation estimator is -0.0366292503968921.
+The non-parametric bootstrap estimate of the standard deviation of the g-computation estimator is 0.0399068834705471.

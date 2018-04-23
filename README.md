@@ -56,4 +56,11 @@ rscript code/tmle.R
 
 For the TMLE, we have a confidence interval based on the Influence Curve hence we do not need to do bootstrap hence it is not implemented.
 
+## Running G-Computation and IPTW Bootstrap
+If you run
 
+```
+bash code/bootstrap_gcomp_iptw.sh
+```
+
+The the bootstrap for the g-comp and iptw esitmator will automatically run for both binary and continuous response with B=500 and n=2500. To change this, you will need to edit the file.
