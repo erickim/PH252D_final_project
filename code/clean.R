@@ -37,7 +37,6 @@ clean <- data %>%
   filter(ORIG_REAS_ENTITLE_CD == 0) %>%
   select(Vaccination_A = RX_THER_17_YR2015,
          Hospitalization_Y = ADMISSIONS,
-         Above_Pvt_Line_W1 = Pct_above_poverty_line,
          Est_income_W1 = Est_income,
          Est_Net_Worth_W1 = Est_Net_worth,
          Education_W2 = Education_level,
