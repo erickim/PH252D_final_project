@@ -8,8 +8,9 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(magrittr))
 suppressMessages(library(ltmle))
 suppressMessages(library(SuperLearner))
+suppressMessages(library(readr))
 
-clean <- read.csv("data/cleaned_tamu.csv")[,-1]
+clean <- read_csv("data/cleaned_tamu.csv")[,-1]
 
 Y_continuous <- clean$Hospitalization_Y
 

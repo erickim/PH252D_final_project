@@ -6,11 +6,12 @@ library(ltmle)
 library(tables)
 library(tidyverse)
 library(magrittr)
+library(readr)
 
 B <- 500
 n <- 2500
 
-clean <- read.csv("data/cleaned_tamu.csv")[,-1]
+clean <- read_csv("data/cleaned_tamu.csv")[,-1]
 clean %<>% mutate(Vaccination_A = as.factor((Vaccination_A >= 1)*1),
                   Sex_W5 = as.factor(Sex_W5),
                   College_W2 = as.factor(College_W2))

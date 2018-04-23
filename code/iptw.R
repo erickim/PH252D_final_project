@@ -10,6 +10,7 @@
 
 suppressMessages(library(tidyverse))
 suppressMessages(library(magrittr))
+suppressMessages(library(readr))
 
 # `Rscript code/g_computation.R bootstrap=TRUE B=1000 n=20000`
 args = commandArgs(trailingOnly = TRUE)
@@ -19,7 +20,7 @@ if (length(args) > 0) {
   }
 }
 
-clean <- read.csv("data/cleaned_tamu.csv")[,-1]
+clean <- read_csv("data/cleaned_tamu.csv")[,-1]
 clean %<>% mutate(Vaccination_A = as.factor((Vaccination_A >= 1)*1),
                   Sex_W5 = as.factor(Sex_W5),
                   College_W2 = as.factor(College_W2))
@@ -61,6 +62,12 @@ stab_IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))/mean(wt*(clean$Vaccination_A == 0))
 
 cat(paste0("The stabilized IPTW estimator is ", stab_IPTW, ".\n"))
+
+#""""""""""""""""""""""""""""""#
+# assess positivity assumption #
+#""""""""""""""""""""""""""""""#
+
+
 
 #""""""""""""""""""""""""""#
 # non-parametric bootstrap #
