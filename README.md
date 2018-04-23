@@ -7,7 +7,7 @@ In order to download this repository, run
 git clone https://github.com/erickim/PH252D_final_project.git
 ```
 
-In order to get the cleaned data set, please create a `data` directory, put the `TAMU_FINAL_SUBSET.csv` file in the `data` directory, and run in the terminal from the main directory:
+In order to get the cleaned data set, please create a `data` directory, put the `TAMU_FINAL_SUBSET.csv` file in the `data` directory (please email me (ekim339 (at) berkeley (dot) edu) if you wish to get a copy of this dataset for reproducibility purposes), and run in the terminal from the main directory:
 
 ```
 rscript code/clean.R
