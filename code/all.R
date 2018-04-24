@@ -183,9 +183,9 @@ estimands <- rep(c("G-Computation", "IPTW", "Stabilized IPTW", "TMLE"), times = 
 results <- data.frame("Estimate" = ests, "SD" = sds, types, estimands)
 
 booktabs()
-
 latex(
-    tabular( Percent() + Format(digits = 3)*(Est_Net_Worth_W1 + Age_W3 + Hospitalization_Y)*(mean + sd) ~
+    tabular( Percent() + (Est_Net_Worth_W1 + Age_W3 +
+                          Hospitalization_Y)*(mean + sd) ~
                  (Vaccinated = factor(Vaccination_A))*
                  factor(Sex_W5)*College_W2,
             data = clean), booktabs = TRUE
