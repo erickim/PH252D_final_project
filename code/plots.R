@@ -57,6 +57,23 @@ ggsave(filename = "plots/boot_dens_continuous.png",
        plot = boot_dens_continuous,
        device = "png",
        width = 12,
-       heigh = 6)
+       height = 6)
 
+######################################
+## assess the positivity assumption ##
+######################################
 
+propensity_scores <- read.csv("data/iptw_propensity_scores.csv")
+
+propensity_dens <- propensity_scores %>%
+  ggplot(aes(x = x)) + 
+  geom_density(alpha = .8, fill = "gray") +
+  ylab("Density") +
+  ggtitle("Distribution of Propensity Scores") +
+  theme_classic()
+
+ggsave(filename = "plots/iptw_propensity_scores.png",
+       plot = propensity_dens,
+       device = "png",
+       width = 12,
+       height = 6)
