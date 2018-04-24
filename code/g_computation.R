@@ -86,7 +86,7 @@ if (!("bootstrap") %in% ls()) bootstrap <- FALSE
 if (bootstrap) {
   # set default if B and n not passed in command line
   if (!("B" %in% ls())) B <- 500
-  if (!("n" %in% ls())) n <- 2500
+  if (!("n" %in% ls())) n <- nrow(clean)
   
   estimates <- replicate(B, Psi_est(clean, n))
   write.csv(estimates,

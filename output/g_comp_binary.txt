@@ -1,4 +1,4 @@
 G-computation for binary response will be performed.
 The g-computation estimator is -0.0115626793789637.
-The non-parametric bootstrap estimate of the g-computation estimator is -0.0100559087440754.
-The non-parametric bootstrap estimate of the standard deviation of the g-computation estimator is 0.0175267397364852.
+The non-parametric bootstrap estimate of the g-computation estimator is -0.0112877919434573.
+The non-parametric bootstrap estimate of the standard deviation of the g-computation estimator is 0.00524931792649559.

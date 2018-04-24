@@ -29,7 +29,7 @@ if (!("type") %in% ls()) type <- "continuous"
 if (!(type %in% c("continuous", "binary"))) type <- "continuous"
 
 if (type == "binary") {
-  clean %<>% mutate(Hospitalization_Y = as.factor((Hospitalization_Y >= 1)*1))
+  clean %<>% mutate(Hospitalization_Y = (Hospitalization_Y >= 1)*1)
 }
 
 cat(paste0("TMLE for ", type, " response will be performed.\n"))
@@ -67,10 +67,10 @@ if (type == "binary") {
 tmle_out_summary <- summary(tmle_out)
 cat(paste0("The TMLE estimate is ",
            tmle_out_summary$effect.measures$ATE$estimate,
-           "./n"))
+           ".\n"))
 cat(paste0("The TMLE estimate has standard error ",
            tmle_out_summary$effect.measures$ATE$std.dev,
-           "./n"))
+           ".\n"))
 
 #""""""""""""""""""""""""""#
 # non-parametric bootstrap #
@@ -116,7 +116,7 @@ if (!("bootstrap") %in% ls()) bootstrap <- FALSE
 if (bootstrap) {
   # set default if B and n not passed in command line
   if (!("B" %in% ls())) B <- 500
-  if (!("n" %in% ls())) n <- 2500
+  if (!("n" %in% ls())) n <- nrow(clean)
   
   estimates <- t(replicate(B, tmle_est(clean, n)))
   write.csv(estimates,

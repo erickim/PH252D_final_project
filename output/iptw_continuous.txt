@@ -1,7 +1,7 @@
 IPTW for continuous response will be performed.
 The IPTW estimator is -0.039403561400959.
 The stabilized IPTW estimator is -0.0396919204707733.
-The non-parametric bootstrap estimate of the IPTW estimator is -0.0389893249225415.
-The non-parametric bootstrap estimate of the standard deviation of the IPTW estimator is 0.0413705517141559.
-The non-parametric bootstrap estimate of the stabilized IPTW estimator is -0.0392554448386988.
-The non-parametric bootstrap estimate of the standard deviation of the stabilized IPTW estimator is 0.0413200285626894.
+The non-parametric bootstrap estimate of the IPTW estimator is -0.0395601713920027.
+The non-parametric bootstrap estimate of the standard deviation of the IPTW estimator is 0.0130010699476653.
+The non-parametric bootstrap estimate of the stabilized IPTW estimator is -0.0398468535900387.
+The non-parametric bootstrap estimate of the standard deviation of the stabilized IPTW estimator is 0.0129902764677804.
