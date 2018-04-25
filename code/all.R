@@ -175,17 +175,25 @@ ests <- c(gcomp_est, IPTW_estim, stab_IPTW_est, tmle_est,
 sds <- c(gcomp_sd, IPTW_sd, stab_IPTW_sd, tmle_sd,
          gcomp_sd_binary, IPTW_sd_binary, stab_IPTW_sd_binary, tmle_sd_binary)
 
-types <- rep(c("Continuous", "Binary"), each = 4)
+types <- rep
+(c("Continuous", "Binary"), each = 4)
 
 estimands <- rep(c("G-Computation", "IPTW", "Stabilized IPTW", "TMLE"), times = 2)
 
 results <- data.frame("Estimate" = ests, "SD" = sds, types, estimands)
 
 booktabs()
+latex(
+    tabular( Format(digits = 10)*1 + Percent() + (Est_Net_Worth_W1 + Age_W3 +
+                          Hospitalization_Y)*(mean + sd) ~
+                 (Vaccinated = factor(Vaccination_A)) + (Sex_W5) + College_W2 + 1,
+            data = clean), booktabs = TRUE
+)
 
 latex(
-    tabular( (Estimand = factor(estimands)) ~
-                 (Outcome = factor(types))*Format(digits = 2)*
-                 All(results, texify = FALSE)*Heading()*identity,
-            data = results), booktabs = TRUE
+    tabular( Percent() + Format(digits = 10)*1 + (Est_Net_Worth_W1 + Age_W3 +
+                          Hospitalization_Y)*(mean + sd) ~
+                 (Vaccinated = factor(Vaccination_A))*
+                 factor(Sex_W5)*College_W2,
+            data = clean), booktabs = TRUE
 )

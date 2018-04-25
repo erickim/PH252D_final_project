@@ -51,6 +51,17 @@ gAW[clean$Vaccination_A == 0] <- pred_g0W[clean$Vaccination_A == 0]
 
 wt <- 1/gAW
 
+wt_stab <- (clean$Vaccination_A == 1)*wt/sum((clean$Vaccination_A == 1)*wt)
+wt_stab[clean$Vaccination_A == 0] <- wt[clean$Vaccination_A == 0] /
+    sum((clean$Vaccination_A == 0)*wt)
+
+write.csv(pred_g1W, "data/iptw_propensity_scores.csv",
+          row.names = FALSE)
+write.csv(gAW, "data/iptw_gAW.csv",
+          row.names = FALSE)
+write.csv(wt_stab, "data/stab_iptw_wt.csv",
+          row.names = FALSE)
+
 # HT estimator
 IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization_Y)) -
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))
@@ -62,12 +73,6 @@ stab_IPTW <- mean(wt*(clean$Vaccination_A == 1)*as.numeric(clean$Hospitalization
   mean(wt*(clean$Vaccination_A == 0)*as.numeric(clean$Hospitalization_Y))/mean(wt*(clean$Vaccination_A == 0))
 
 cat(paste0("The stabilized IPTW estimator is ", stab_IPTW, ".\n"))
-
-#""""""""""""""""""""""""""""""#
-# assess positivity assumption #
-#""""""""""""""""""""""""""""""#
-
-
 
 #""""""""""""""""""""""""""#
 # non-parametric bootstrap #
