@@ -9,6 +9,8 @@ git clone https://github.com/erickim/PH252D_final_project.git
 
 In order to get the cleaned data set, please create a `data` directory, put the `TAMU_FINAL_SUBSET.csv` file in the `data` directory (please email me (ekim339 (at) berkeley (dot) edu) if you wish to get a copy of this dataset for reproducibility purposes), and run in the terminal from the main directory:
 
+NOTE: if you have `R` installed on MacOS rscript will automatically work. If you're on another system, you may have to find where it is first by doing `which rscript`.
+
 ```
 rscript code/clean.R
 ```

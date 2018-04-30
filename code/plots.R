@@ -21,7 +21,7 @@ boot_dens_binary <- data.frame(gcomp_binary,
   melt() %>%
   rename(Value = value,
          Method = variable) %>%
-  ggplot(aes(x = Value, fill = Method, y = ..scaled..)) +
+  ggplot(aes(x = Value, y = ..scaled.., fill = Method)) +
   geom_density(alpha = .5) +
   ylab("Density") +
   ggtitle("Bootstrap Distribution of G-Computation, IPTW, and Stabilized IPTW for Binary Response") +
@@ -47,7 +47,7 @@ boot_dens_continuous <- data.frame(gcomp_continuous,
   melt() %>%
   rename(Value = value,
          Method = variable) %>%
-  ggplot(aes(x = Value, fill = Method, y = ..scaled..)) +
+  ggplot(aes(x = Value, y = ..scaled.., fill = Method)) +
   geom_density(alpha = .5) +
   ylab("Density") +
   ggtitle("Bootstrap Distribution of G-Computation, IPTW, and Stabilized IPTW for Continuous Response") +
@@ -59,6 +59,7 @@ ggsave(filename = "plots/boot_dens_continuous.png",
        device = "png",
        width = 12,
        height = 6)
+
 
 ######################################
 ## assess the positivity assumption ##
