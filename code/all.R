@@ -184,15 +184,19 @@ results <- data.frame("Estimate" = ests, "SD" = sds, types, estimands)
 
 booktabs()
 latex(
-    tabular( Format(digits = 10)*1 + Percent() + (Est_Net_Worth_W1 + Age_W3 +
-                          Hospitalization_Y)*(mean + sd) ~
+    tabular( Format(digits = 10)*1 + Percent() +
+             (Est_Net_Worth_W1 + Age_W3 +
+              (Medical_Risk = exp(Medical_Risk_W4)-.1) +
+              Hospitalization_Y)*(mean + sd) ~
                  (Vaccinated = factor(Vaccination_A)) + (Sex_W5) + College_W2 + 1,
             data = clean), booktabs = TRUE
 )
 
 latex(
-    tabular( Percent() + Format(digits = 10)*1 + (Est_Net_Worth_W1 + Age_W3 +
-                          Hospitalization_Y)*(mean + sd) ~
+    tabular( Percent() + Format(digits = 10)*1 +
+             (Est_Net_Worth_W1 + Age_W3 +
+              (Medical_Risk = exp(Medical_Risk_W4)-.1) +
+              Hospitalization_Y)*(mean + sd) ~
                  (Vaccinated = factor(Vaccination_A))*
                  factor(Sex_W5)*College_W2,
             data = clean), booktabs = TRUE
