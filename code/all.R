@@ -7,6 +7,7 @@ library(tables)
 library(tidyverse)
 library(magrittr)
 library(readr)
+library(SuperLearner)
 
 B <- 500
 n <- 2500
@@ -128,6 +129,9 @@ SL.library <- c("SL.glm", "SL.glm.interaction",
                 "SL.step", "SL.gam",
                 "SL.rpartPrune", "SL.mean")
 
+## return the full tmle fit object
+attr(SL.library, "return.fit") <- TRUE
+
 W <- clean %>% select(-c(Hospitalization_Y, Vaccination_A))
 A <- as.numeric(clean$Vaccination_A) - 1
 
@@ -148,6 +152,24 @@ tmle_est <- summary(tmle_continuous)$effect.measures$ATE$estimate
 tmle_sd <- summary(tmle_continuous)$effect.measures$ATE$std.dev
 tmle_pval <- summary(tmle_continuous)$effect.measures$ATE$pvalue
 
+CV.SL_continuous <- CV.SuperLearner(
+    Y = Y_continuous,
+    X = data.frame(W, A),
+    SL.library = SL.library
+)
+
+risk_continuous <- data.frame(
+    "Name" = names(tmle_continuous$fit$g[[1]]$A$cvRisk),
+    "type" = rep("Continuous", length(tmle_continuous$fit$g[[1]]$A$cvRisk)),
+    "estimand" = rep(c("g", "Q"),
+                     each = length(tmle_continuous$fit$g[[1]]$A$cvRisk)),
+    "cvRisk" = tmle_continuous$fit$g[[1]]$A$cvRisk,
+    "coef" = tmle_continuous$fit$g[[1]]$A$coef,
+    "cvRisk" = tmle_continuous$fit$Q[[1]]$Y$cvRisk,
+    "coef" = tmle_continuous$fit$Q[[1]]$Y$coef,
+    row.names = NULL
+)
+
 #################
 ## binary TMLE ##
 #################
@@ -163,6 +185,35 @@ tmle_binary <- ltmle(data = df_binary, Anodes = 'A', Ynodes = 'Y',
 tmle_est_binary <- summary(tmle_binary)$effect.measures$ATE$estimate
 tmle_sd_binary <- summary(tmle_binary)$effect.measures$ATE$std.dev
 tmle_pval_binary <- summary(tmle_binary)$effect.measures$ATE$pvalue
+
+CV.SL_binary <- CV.SuperLearner(
+    Y = Y_binary,
+    X = data.frame(W, A),
+    SL.library = SL.library,
+    family = "binomial"
+)
+
+risk_binary <- data.frame(
+    "Name" = names(tmle_binary$fit$g[[1]]$A$cvRisk),
+    "type" = rep("Binary", length(tmle_binary$fit$g[[1]]$A$cvRisk)),
+    "estimand" = rep(c("g", "Q"), each = length(tmle_binary$fit$g[[1]]$A$cvRisk)),
+    "cvRisk" = tmle_binary$fit$g[[1]]$A$cvRisk,
+    "coef" = tmle_binary$fit$g[[1]]$A$coef,
+    "cvRisk" = tmle_binary$fit$Q[[1]]$Y$cvRisk,
+    "coef" = tmle_binary$fit$Q[[1]]$Y$coef,
+    row.names = NULL
+)
+
+## risk assessment table
+risk_assess <- rbind(risk_binary, risk_continuous)
+
+booktabs()
+latex(
+    tabular( Name ~ type*estimand*Format(digits = 3)*identity*(cvRisk + coef +
+                              cvRisk + coef),
+            data = risk_assess), booktabs = TRUE
+)
+
 
 ##""""""""""""""""""""""""""""""""""""""#
 ## put everything together in one table #
@@ -192,6 +243,7 @@ latex(
             data = clean), booktabs = TRUE
 )
 
+booktabs()
 latex(
     tabular( Percent() + Format(digits = 10)*1 +
              (Est_Net_Worth_W1 + Age_W3 +
