@@ -4,7 +4,6 @@
 .DS_Store
 *.gz
 *.log
-*.tex
 *.RData
 *.csv
 *.xlsx
