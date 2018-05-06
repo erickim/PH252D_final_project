@@ -75,6 +75,12 @@ propensity_dens <- propensity_scores %>%
     ggtitle("Distribution of Propensity Scores") +
     theme_classic()
 
+ggsave(filename = "plots/propensity.png",
+       plot = propensity_dens,
+       device = "png",
+       width = 12,
+       height = 6)
+
 gAW <- read.csv("data/iptw_gAW.csv")
 
 gAW_dens <- gAW %>%
@@ -85,6 +91,12 @@ gAW_dens <- gAW %>%
     ggtitle("Distribution of IPTW Weights") +
     theme_classic()
 
+ggsave(filename = "plots/IPTW_weights.png",
+       plot = gAW_dens,
+       device = "png",
+       width = 12,
+       height = 6)
+
 stab_wt <- read.csv("data/stab_iptw_wt.csv")
 
 stab_wt_dens <- stab_wt %>%
@@ -94,6 +106,12 @@ stab_wt_dens <- stab_wt %>%
     ylab("Density") +
     ggtitle("Distribution of Stabilized IPTW Weights") +
     theme_classic()
+
+ggsave(filename = "plots/stabilized_IPTW_weights.png",
+       plot = stab_wt_dens,
+       device = "png",
+       width = 12,
+       height = 6)
 
 positivity_grid <- grid.arrange(propensity_dens, gAW_dens, stab_wt_dens, nrow = 3)
 
