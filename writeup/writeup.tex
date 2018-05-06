@@ -212,7 +212,7 @@ However, we have to be weary of practical positivity violations or near violatio
 
 Figure \ref{fig:propensity} shows the distribution of estimated propensity scores $g_n(A = 1 | W)$, the probability of vaccination in 2015 given background covariates, for all 26779 subjects. The minimum and maximum scores are 0.084 and 0.336. Importantly, the scores are neither very small nor very large, and as a result $g_n(A_i = 0|W_i) = 1 - g_n(A_i|W_i)$ will also not be very small. As we will see next, this precludes extreme weights in the IPTW estimators.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[scale=0.5]{figures/propensity.png}
     \caption{Probability of vaccination in 2015, given background covariates.}
@@ -288,7 +288,7 @@ step  & $0.170$ & $0$ & $0.135$ & $0$ & $0.170$ & $0$ & $0.005$ & $0$ \\
     \label{tab:performance}
 \end{table}
 
-Table \ref{tab:performance} shows the cross-validated risk and ensemble learner coefficients for each algorithm in our library when estimating $g_0$ and $\bar{Q}_0$. In the binary outcome case, SuperLearner gives all the weight to \texttt{SL.gam} in estimating $g_0$ and combines \textt{SL.gam, SL.glm.interaction} and \texttt{SL.rpartPrune} to estimate $\bar{Q}_0$, with \textt{SL.gam} receiving nearly 90\% of the weight. The continuous case again places all weight on \texttt{SL.gam} when estimating $g_0$, but only chooses \texttt{SL.gam} and \texttt{SL.glm.interaction}, place much less weight on \texttt{SL.gam}, with the majority ($\approx$ 60\%) going to \texttt{SL.glm.interaction}.
+Table \ref{tab:performance} shows the cross-validated risk and ensemble learner coefficients for each algorithm in our library when estimating $g_0$ and $\bar{Q}_0$. In the binary outcome case, SuperLearner gives all the weight to \texttt{SL.gam} in estimating $g_0$ and combines \texttt{SL.gam, SL.glm.interaction} and \texttt{SL.rpartPrune} to estimate $\bar{Q}_0$, with \texttt{SL.gam} receiving nearly 90\% of the weight. The continuous case again places all weight on \texttt{SL.gam} when estimating $g_0$, but only chooses \texttt{SL.gam} and \texttt{SL.glm.interaction}, place much less weight on \texttt{SL.gam}, with the majority ($\approx$ 60\%) going to \texttt{SL.glm.interaction}.
 
 The average risk from \texttt{CV.SuperLearner} in the continuous case was 0.789 for Super Learner, followed closely by the discrete winner \texttt{SL.gam} at 0.79. The other algorithms in the library had risk between 0.79 and 0.8, substantially better than the 0.84 risk of \texttt{SL.mean}. Super Learner places non-zero weight on \texttt{SL.gam} and \texttt{SL.rpartPrune}.
 
@@ -314,7 +314,7 @@ In the binary outcome case, the MSE of the ensemble learner was actually $10^{-5
 In Figures \ref{fig:boot_bin} and \ref{fig:boot_cont} we take a look at the bootstrapped distributions for the G-Computation, IPTW, and Stabilized IPTW estimators for both binary and continuous response. They all look relatively similar to each other and are practically normally distributed. This further provides evidence to our suggestion that the large sample size is allowing for well behaved CLT type behavior.
 
 \subsection{Inference}
-\begin{table}[H]
+\begin{table}
 \begin{center}
 \begin{tabular}{lcc}
 \toprule

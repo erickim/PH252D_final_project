@@ -1,7 +1,10 @@
-.aux
-.out
-.Rhistory
-.DS_Store
+*.nav
+*.snm
+*.toc
+*.aux
+*.out
+*.Rhistory
+*.DS_Store
 *.gz
 *.log
 *.RData
